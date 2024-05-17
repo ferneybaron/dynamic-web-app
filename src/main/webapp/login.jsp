@@ -18,18 +18,18 @@
       <section class="section banner banner-section">
         <div class="container">
 
-          <div class="margin-bottom--12 content-center">
-          <%-- Check if loginMessage attribute exists --%>
-          <% if (request.getAttribute("loginMessage") != null) { %>
-          <p style="color: red">
-            <%= request.getAttribute("loginMessage") %>
-          </p>
-            <% } %>
-          </div>
-
           <div class="login-card padding-horizontal--48">
             <h2>Welcome Back</h2>
             <p class="paragraph">Please enter your FBank credentials</p>
+
+            <div class="margin-bottom--12 content-center">
+            <%-- Check if loginMessage attribute exists --%>
+            <% if (request.getAttribute("loginMessage") != null) { %>
+            <p style="color: red">
+                <%= request.getAttribute("loginMessage") %>
+            </p>
+                <% } %>
+            </div>
 
             <form class="login-form" action="login" method="post">
               <div class="field">
@@ -66,6 +66,7 @@
                 </span>
               </div>
             </form>
+
           </div>
 
         </div>

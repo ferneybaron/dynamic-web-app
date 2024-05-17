@@ -16,15 +16,13 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        if (username.equalsIgnoreCase("fbaron") &&
-        password.equalsIgnoreCase("1234")) {
-            request.setAttribute("loginMessage", "Your login was successful.");
+        if (username.equalsIgnoreCase("fbaron") && password.equals("1234")) {
+            request.setAttribute("loginMessage", "Your login was successful");
         } else {
-            request.setAttribute("loginMessage", "Invalid username or password. Please try again.");
+            request.setAttribute("loginMessage", "Invalid username or password, please try again.");
         }
 
         request.getRequestDispatcher("/login.jsp").forward(request, response);
