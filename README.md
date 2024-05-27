@@ -28,6 +28,18 @@ git clone https://github.com/ferneybaron/dynamic-web-app.git
 2. Import the project into your preferred IDE (e.g., IntelliJ IDEA, Eclipse).
 3. Configure the project to use the appropriate JDK and Tomcat server.
 
+## Database Setup
+
+Before running the application, you need to set up the database using the provided SQL script. Follow these steps:
+
+1. Navigate to the `\src\main\resources` directory in the project.
+2. Locate the `script.sql` file.
+3. Run the SQL script on your database. The method to do this will depend on your database management system. For example, if you're using MySQL, you can use the following command:
+
+```
+mysql -u username -p database_name < script.sql
+```
+
 ## Usage
 
 To run the application:
