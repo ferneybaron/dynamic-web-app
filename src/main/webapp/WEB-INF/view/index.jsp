@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,7 +25,7 @@
                 <h1 class="heading-xl">Welcome to FBaron Bank</h1>
                 <p class="paragraph">Your trusted partner in financial success.</p>
                 <a class="btn btn-darken btn-inline"
-                   href="login.jsp">
+                   href="login">
                     Login
                 </a>
             </div>
