@@ -10,6 +10,28 @@
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
 
+    <!-- Configuración del servlet para servir archivos estáticos -->
+    <servlet>
+        <servlet-name>default</servlet-name>
+        <servlet-class>org.apache.catalina.servlets.DefaultServlet</servlet-class>
+        <init-param>
+            <param-name>debug</param-name>
+            <param-value>0</param-value>
+        </init-param>
+        <init-param>
+            <param-name>listings</param-name>
+            <param-value>false</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/css/*</url-pattern>
+        <url-pattern>/js/*</url-pattern>
+        <url-pattern>/assets/*</url-pattern>
+    </servlet-mapping>
+
     <servlet>
         <servlet-name>MyServlet</servlet-name>
         <servlet-class>com.fbaron.MyServlet</servlet-class>

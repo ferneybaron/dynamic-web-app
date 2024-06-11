@@ -8,7 +8,7 @@
             content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
     />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="./css/styles.css?v=1" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css?v=1" />
     <title>Login</title>
 </head>
 <body>
@@ -73,6 +73,6 @@
       </section>
     </main>
 
-<script src="./js/script.js?v=1"></script>
+<script src="${pageContext.request.contextPath}/js/script.js?v=1"></script>
 </body>
 </html>

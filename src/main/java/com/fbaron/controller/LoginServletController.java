@@ -1,5 +1,6 @@
 package com.fbaron.controller;
 
+import com.fbaron.dao.UserDAOImpl;
 import com.fbaron.model.UserModel;
 
 import javax.servlet.ServletException;
@@ -23,7 +24,7 @@ public class LoginServletController extends HttpServlet {
         String password = request.getParameter("password");
         String loginMessage = null;
 
-        UserModel userModel = new UserModel().login(username, password);
+        UserModel userModel = new UserDAOImpl().getUserByUsernameAndPassword(username, password);
 
         if (userModel != null) {
             loginMessage = "Your login was successful " + userModel.getFirstName();
