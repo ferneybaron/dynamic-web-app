@@ -1,16 +1,22 @@
 plugins {
     id 'java'
+    id("org.openrewrite.rewrite") version("6.16.0")
 }
 
 group = 'com.fbaron'
 version = '1.0-SNAPSHOT'
+
+rewrite {
+    activeRecipe("org.openrewrite.java.migrate.jakarta.JakartaEE10")
+}
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    compileOnly 'javax.servlet:javax.servlet-api:4.0.1'
+    rewrite("org.openrewrite.recipe:rewrite-migrate-java:2.17.0")
+    compileOnly 'jakarta.servlet:jakarta.servlet-api:6.1.0'
     implementation 'com.mysql:mysql-connector-j:8.4.0'
 
     testImplementation platform('org.junit:junit-bom:5.10.0')
