@@ -8,13 +8,44 @@ This repository contains a dynamic web application designed to showcase legacy w
 
 - Interactive web pages using Java servlets
 - Dynamic content generation based on user input
+- Environment-based configuration for secure database access
 - Simple and intuitive user interface
 
 ## Prerequisites
 
 Before running this application, make sure you have the following installed:
-- Java Development Kit (JDK) 1.8 or higher
-- Apache Tomcat 8.5 or higher
+
+- Java Development Kit (JDK) 17 or higher
+- Apache Tomcat 10 or higher
+- MySQL database server
+
+## Environment Variables Configuration
+
+To improve security and flexibility, database credentials are managed using environment variables. Define the following variables in your system:
+
+### Linux/macOS
+
+```bash
+export MYSQL_JDBC_URL="jdbc:mysql://localhost:3306/fbank"
+export MYSQL_JDBC_USER="root"
+export MYSQL_JDBC_PASSWORD="yourpassword"
+```
+
+### Windows CMD
+
+```bash
+set MYSQL_JDBC_URL=jdbc:mysql://localhost:3306/fbank
+set MYSQL_JDBC_USER=root
+set MYSQL_JDBC_PASSWORD=yourpassword
+```
+
+### IntelliJ IDEA
+
+```bash
+MYSQL_JDBC_URL=jdbc:mysql://localhost:3306/fbank;
+MYSQL_JDBC_USER=root;
+MYSQL_JDBC_PASSWORD=yourpassword;
+```
 
 ## Installation
 

@@ -7,9 +7,9 @@ import java.util.List;
 
 public class UserDAOImpl implements UserDAO {
 
-    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/fbank";
-    private static final String JDBC_USER = "root";
-    private static final String JDBC_PASSWORD = "rootpassword";
+    private static final String JDBC_URL = System.getenv("MYSQL_JDBC_URL");
+    private static final String JDBC_USER = System.getenv("MYSQL_JDBC_USER");
+    private static final String JDBC_PASSWORD = System.getenv("MYSQL_JDBC_PASSWORD");
 
     // Load the JDBC driver
     static {
