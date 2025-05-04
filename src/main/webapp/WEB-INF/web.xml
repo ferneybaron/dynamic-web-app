@@ -32,14 +32,4 @@
         <url-pattern>/assets/*</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>MyServlet</servlet-name>
-        <servlet-class>com.fbaron.MyServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>MyServlet</servlet-name>
-        <url-pattern>/my-servlet</url-pattern>
-    </servlet-mapping>
-
 </web-app>

@@ -62,7 +62,7 @@
               <div class="footer-link padding-top--12">
                 <span>
                     Don't have an account?
-                    <a href="">Register</a>
+                    <a href="register">Register</a>
                 </span>
               </div>
             </form>

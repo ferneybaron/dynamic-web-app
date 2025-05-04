@@ -84,4 +84,22 @@ public class UserDAOImpl implements UserDAO {
     public void deleteUser(long id) {
 
     }
+
+    @Override
+    public boolean userExists(String username) {
+
+        String query = "SELECT * FROM user WHERE username = ?";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, username);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            return resultSet.next();
+
+        } catch (SQLException e) {
+            System.err.println("UserDAOImpl userExists failed to select user by username: " + e.getMessage());
+        }
+        return false;
+    }
 }
