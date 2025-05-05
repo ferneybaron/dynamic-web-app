@@ -24,15 +24,6 @@
         <h2>FBank Account Registration</h2>
         <p class="paragraph">Create your account</p>
 
-        <div class="margin-bottom--12 content-center">
-          <%-- Check if successMessage attribute exists --%>
-            <% if (request.getAttribute("registerMessage") !=null) { %>
-              <p style="color: red">
-                <%= request.getAttribute("registerMessage") %>
-              </p>
-              <% } %>
-        </div>
-
         <%-- Get Attributes from the request --%>
         <%
             List<String> errors = (List<String>) request.getAttribute("errors");
