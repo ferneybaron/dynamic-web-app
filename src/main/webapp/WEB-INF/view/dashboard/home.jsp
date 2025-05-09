@@ -12,20 +12,20 @@
       rel="stylesheet"
       href="${pageContext.request.contextPath}/css/styles.css?v=2"
     />
-    <title>Login</title>
+    <title>Home</title>
   </head>
   <body>
 
     <%-- Get Attributes from the request --%>
     <%
-        String user = (String) request.getAttribute("username");
+        String user = (String) request.getSession().getAttribute("user");
     %>
     <!-- Main Section -->
     <main class="main">
       <section class="section banner banner-section">
         <div class="container">
           <div class="login-card padding-horizontal--48">
-            <h2>Welcome Back <%= user %></h2>
+            <h2>Welcome Back <p style="color: green;"><%= user %>
             <div class="margin-bottom--12 content-center full-width">
 
             </div>

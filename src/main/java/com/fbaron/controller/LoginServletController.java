@@ -29,7 +29,8 @@ public class LoginServletController extends HttpServlet {
         if (userModel != null) {
             HttpSession session = request.getSession();
             session.setAttribute("user", username);
-            response.sendRedirect("/WEB-INF/view/dashboard/home.jsp");
+            response.sendRedirect("home");
+            return;
         } else {
             String errorMessage = "Invalid username or password, please try again.";
             request.setAttribute("errorMessage", errorMessage);
@@ -42,8 +43,10 @@ public class LoginServletController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        if (request.getSession().getAttribute("user") != null) {
-            response.sendRedirect("/WEB-INF/view/dashboard/home.jsp");
+        Object authenticatedUser = request.getSession().getAttribute("user");
+
+        if (authenticatedUser != null) {
+            response.sendRedirect("home");
             return;
         }
 
