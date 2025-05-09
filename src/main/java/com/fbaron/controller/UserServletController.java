@@ -39,6 +39,7 @@ public class UserServletController extends HttpServlet {
         List<String> errors = userService.validateUser(userModel, confirmPassword);
 
         if (errors.isEmpty()) {
+            userService.registerUser(userModel);
             String successMessage = "Your registration was successful " + userModel.getFirstName();
             request.setAttribute("successMessage", successMessage);
         } else {
@@ -47,8 +48,6 @@ public class UserServletController extends HttpServlet {
             request.setAttribute("userModel", userModel);
             request.setAttribute("errorMessage", errorMessage);
         }
-
-        userService.registerUser(userModel);
 
         request.getRequestDispatcher("/WEB-INF/view/register.jsp").forward(request, response);
     }
