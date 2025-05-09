@@ -12,7 +12,18 @@ CREATE TABLE user (
 );
 
 INSERT INTO fbank.user (first_name, last_name, username, password)
-VALUES('Ferney', 'Baron', 'fbaron', '1234');
+VALUES
+  ('Ferney', 'Barón', 'fbaron', '1234'),
+  ('María', 'López', 'mlopez', 'abcd'),
+  ('Juan', 'García', 'jgarcia', 'password'),
+  ('Luis', 'Martínez', 'lmartinez', '123456'),
+  ('Ana', 'Ramírez', 'aramirez', 'qwerty'),
+  ('Carlos', 'Hernández', 'chernandez', '1111'),
+  ('Lucía', 'Gómez', 'lgomez', 'letmein'),
+  ('Pedro', 'Díaz', 'pdiaz', '0000'),
+  ('Sofía', 'Ruiz', 'sruiz', 'admin'),
+  ('Andrés', 'Torres', 'atorres', '4321');
+
 
 -- fbank.employee definition
 

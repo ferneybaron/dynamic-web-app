@@ -50,7 +50,16 @@ public class UserServletController extends HttpServlet {
 
         userService.registerUser(userModel);
 
-        request.getRequestDispatcher("/WEB-INF/view/register.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/view/auth/register.jsp").forward(request, response);
     }
 
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        UserService userService = new UserService();
+        List<UserModel> users = userService.getAllUsers();
+        request.setAttribute("users", users);
+        request.setAttribute("viewPage", "/WEB-INF/view/users/user-list.jsp");
+        request.getRequestDispatcher("/WEB-INF/view/base-layout.jsp").forward(request, response);
+    }
 }

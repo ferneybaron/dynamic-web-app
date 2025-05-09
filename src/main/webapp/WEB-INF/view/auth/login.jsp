@@ -23,13 +23,22 @@
             <p class="paragraph">Please enter your FBank credentials</p>
 
             <div class="margin-bottom--12 content-center">
-            <%-- Check if loginMessage attribute exists --%>
-            <% if (request.getAttribute("loginMessage") != null) { %>
-            <p style="color: red">
-                <%= request.getAttribute("loginMessage") %>
-            </p>
-                <% } %>
-            </div>
+            <%-- Get Attributes from the request --%>
+            <%
+                String errorMessage = (String) request.getAttribute("errorMessage");
+                String successMessage = (String) request.getAttribute("successMessage");
+
+                if (errorMessage != null) {
+            %>
+                <p style="color: red;"><%= errorMessage %></p>
+            <%
+                } else if (successMessage != null) {
+            %>
+                <p style="color: green;"><%= successMessage %></p>
+            <%
+                }
+            %>
+
 
             <form class="login-form" action="login" method="post">
               <div class="field">
