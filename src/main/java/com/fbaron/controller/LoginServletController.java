@@ -2,6 +2,7 @@ package com.fbaron.controller;
 
 import com.fbaron.dao.UserDAOImpl;
 import com.fbaron.model.UserModel;
+import com.fbaron.service.UserService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -21,16 +22,16 @@ public class LoginServletController extends HttpServlet {
             throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        String loginMessage = null;
 
-        UserModel userModel = new UserDAOImpl().getUserByUsernameAndPassword(username, password);
+        UserModel userModel = new UserService().authenticateUser(username, password);
 
         if (userModel != null) {
-            loginMessage = "Your login was successful " + userModel.getFirstName();
+            String successMessage = "Your login was successful " + userModel.getFirstName();
+            request.setAttribute("successMessage", successMessage);
         } else {
-            loginMessage = "Invalid username or password, please try again.";
+            String errorMessage = "Invalid username or password, please try again.";
+            request.setAttribute("errorMessage", errorMessage);
         }
-        request.setAttribute("loginMessage", loginMessage);
         request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
 
     }

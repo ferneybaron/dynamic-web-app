@@ -10,7 +10,7 @@ public interface UserDAO {
 
     UserModel getUserById(long id);
 
-    UserModel getUserByUsernameAndPassword(String username, String password);
+    UserModel getUserByUsername(String username);
 
     List<UserModel> getAllUsers();
 

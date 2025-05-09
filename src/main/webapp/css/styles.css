@@ -488,6 +488,7 @@ input[type="password"]:focus-visible {
 
 .login-form {
   width: 100%;
+  text-align: left !important;
 }
 
 .paragraph {
@@ -564,4 +565,8 @@ th {
 
 .menu-block {
   text-transform: uppercase;
+}
+
+.full-width {
+  width: 100%;
 }
