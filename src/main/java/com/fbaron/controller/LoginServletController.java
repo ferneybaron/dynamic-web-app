@@ -1,6 +1,5 @@
 package com.fbaron.controller;
 
-import com.fbaron.dao.UserDAOImpl;
 import com.fbaron.model.UserModel;
 import com.fbaron.service.UserService;
 import jakarta.servlet.ServletException;
@@ -11,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @author Ferney Estupinan Baron
@@ -24,18 +24,26 @@ public class LoginServletController extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        UserModel userModel = new UserService().authenticateUser(username, password);
+        UserService userService = new UserService();
+        List<String> errors = userService.validateUser(username, password);
+
+        if (!errors.isEmpty()) {
+            request.setAttribute("errors", errors);
+            request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
+            return;
+        }
+
+        UserModel userModel = userService.authenticateUser(username, password);
 
         if (userModel != null) {
             HttpSession session = request.getSession();
             session.setAttribute("user", username);
             response.sendRedirect("home");
-            return;
         } else {
             String errorMessage = "Invalid username or password, please try again.";
             request.setAttribute("errorMessage", errorMessage);
+            request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
         }
-        request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
 
     }
 

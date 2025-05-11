@@ -54,6 +54,20 @@ public class UserService {
         userDAO.insertUser(userModel);
     }
 
+    public List<String> validateUser(String username, String password) {
+        List<String> errors = new ArrayList<>();
+
+        if (username == null || username.isBlank()) {
+            errors.add("Username is required");
+        }
+
+        if (password == null || password.isBlank()) {
+            errors.add("Password is required");
+        }
+
+        return errors;
+    }
+
     public UserModel authenticateUser(String username, String password) {
         UserModel user = userDAO.getUserByUsername(username);
         if (user == null) return null;
