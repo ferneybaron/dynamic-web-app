@@ -47,14 +47,13 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public UserModel getUserByUsernameAndPassword(String username, String password) {
+    public UserModel getUserByUsername(String username) {
         UserModel userModel = null;
-        String selectQuery = "SELECT * FROM user WHERE username = ? AND password = ?";
+        String selectQuery = "SELECT * FROM user WHERE username = ?";
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(selectQuery)) {
 
             preparedStatement.setString(1, username);
-            preparedStatement.setString(2, password);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -63,6 +62,8 @@ public class UserDAOImpl implements UserDAO {
                 userModel.setId(resultSet.getLong("id"));
                 userModel.setFirstName(resultSet.getString("first_name"));
                 userModel.setLastName(resultSet.getString("last_name"));
+                userModel.setUsername(resultSet.getString("username"));
+                userModel.setPassword(resultSet.getString("password"));
             }
         } catch (SQLException e) {
             System.err.println("UserDAOImpl failed to select user by username and password: " + e.getMessage());

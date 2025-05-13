@@ -3,6 +3,7 @@ package com.fbaron.service;
 import com.fbaron.dao.UserDAO;
 import com.fbaron.dao.UserDAOImpl;
 import com.fbaron.model.UserModel;
+import com.fbaron.util.PasswordUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +51,16 @@ public class UserService {
     }
 
     public void registerUser(UserModel userModel) {
+        String hashedPassword = PasswordUtil.hash(userModel.getPassword());
+        userModel.setPassword(hashedPassword);
         userDAO.insertUser(userModel);
+    }
+
+    public UserModel authenticateUser(String username, String password) {
+        UserModel user = userDAO.getUserByUsername(username);
+        if (user == null) return null;
+
+        return PasswordUtil.matches(password, user.getPassword()) ? user : null;
     }
 
 }
