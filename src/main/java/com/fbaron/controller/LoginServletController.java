@@ -1,6 +1,5 @@
 package com.fbaron.controller;
 
-import com.fbaron.dao.UserDAOImpl;
 import com.fbaron.model.UserModel;
 import com.fbaron.service.UserService;
 import jakarta.servlet.ServletException;
