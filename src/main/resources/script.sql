@@ -8,7 +8,7 @@ CREATE TABLE user (
     last_name VARCHAR(20) DEFAULT NULL,
     username VARCHAR(20) DEFAULT NULL,
     password VARCHAR(100) DEFAULT NULL,
-    UNIQUE KEY UK_sb8bbouer5wak8vyiiy4pf2bx (username)
+    UNIQUE KEY UK_user_username (username)
 );
 
 INSERT INTO fbank.user (first_name, last_name, username, password)
