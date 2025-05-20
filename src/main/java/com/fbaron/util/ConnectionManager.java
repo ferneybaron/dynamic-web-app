@@ -4,6 +4,7 @@ import com.fbaron.config.DatabaseConfig;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
+import java.sql.SQLException;
 
 /**
  * @author Ferney Estupinan Baron
@@ -15,9 +16,8 @@ public class ConnectionManager {
     public static Connection getConnection() {
         try {
             return dataSource.getConnection();
-        } catch (Exception e) {
-            System.err.println("ConnectionManager failed to get connection: " + e.getMessage());
-            return null;
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to obtain DB connection", e);
         }
     }
 

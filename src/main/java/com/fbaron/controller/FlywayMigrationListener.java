@@ -2,7 +2,6 @@ package com.fbaron.controller;
 
 import com.fbaron.config.DatabaseConfig;
 import com.mysql.cj.jdbc.AbandonedConnectionCleanupThread;
-import com.mysql.cj.jdbc.MysqlDataSource;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
@@ -16,14 +15,6 @@ public class FlywayMigrationListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        String JDBC_URL = System.getenv("MYSQL_JDBC_URL");
-        String JDBC_USER = System.getenv("MYSQL_JDBC_USER");
-        String JDBC_PASSWORD = System.getenv("MYSQL_JDBC_PASSWORD");
-
-        MysqlDataSource dataSource = new MysqlDataSource();
-        dataSource.setURL(JDBC_URL);
-        dataSource.setUser(JDBC_USER);
-        dataSource.setPassword(JDBC_PASSWORD);
 
         Flyway flyway = Flyway.configure()
                 .dataSource(DatabaseConfig.getDataSource())

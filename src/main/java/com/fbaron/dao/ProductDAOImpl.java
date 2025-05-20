@@ -19,7 +19,8 @@ public class ProductDAOImpl implements ProductDAO {
     public void insertProduct(ProductModel model) {
     String  sql = "INSERT INTO product (name, description, interestRate) VALUES (?, ?, ?)";
         try (Connection connection = ConnectionManager.getConnection()) {
-            assert connection != null;
+            if (connection == null) throw new IllegalStateException("Connection is null");
+
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setString(1, model.getName());
                 statement.setString(2, model.getDescription());
@@ -35,7 +36,7 @@ public class ProductDAOImpl implements ProductDAO {
     public ProductModel getProductById(long id) {
         String sql = "SELECT * FROM product WHERE id = ?";
         try (Connection connection = ConnectionManager.getConnection()) {
-            assert connection != null;
+            if (connection == null) throw new IllegalStateException("Connection is null");
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
                 preparedStatement.setLong(1, id);
@@ -60,7 +61,7 @@ public class ProductDAOImpl implements ProductDAO {
     public List<ProductModel> getAllProducts() {
         String sql = "SELECT * FROM product";
         try (Connection connection = ConnectionManager.getConnection()) {
-            assert connection != null;
+            if (connection == null) throw new IllegalStateException("Connection is null");
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
                 List<ProductModel> products = new ArrayList<>();
