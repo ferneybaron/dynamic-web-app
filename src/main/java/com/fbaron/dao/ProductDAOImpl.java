@@ -20,13 +20,11 @@ public class ProductDAOImpl implements ProductDAO {
         String sql = "INSERT INTO product (name, description, interestRate) VALUES (?, ?, ?)";
         try (Connection connection = ConnectionManager.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, model.getName());
+            preparedStatement.setString(2, model.getDescription());
+            preparedStatement.setBigDecimal(3, model.getInterestRate());
+            preparedStatement.executeUpdate();
 
-            try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                statement.setString(1, model.getName());
-                statement.setString(2, model.getDescription());
-                statement.setBigDecimal(3, model.getInterestRate());
-                statement.executeUpdate();
-            }
         } catch (SQLException e) {
             System.err.println("ProductDAOImpl failed to insert product: " + e.getMessage());
         }
