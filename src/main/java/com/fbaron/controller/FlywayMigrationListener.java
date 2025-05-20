@@ -2,6 +2,7 @@ package com.fbaron.controller;
 
 import com.fbaron.config.DatabaseConfig;
 import com.mysql.cj.jdbc.AbandonedConnectionCleanupThread;
+import com.zaxxer.hikari.HikariDataSource;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
@@ -15,9 +16,10 @@ public class FlywayMigrationListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
+        HikariDataSource dataSource = DatabaseConfig.getDataSource();
 
         Flyway flyway = Flyway.configure()
-                .dataSource(DatabaseConfig.getDataSource())
+                .dataSource(dataSource)
                 .locations("classpath:db/migration")
                 .load();
 

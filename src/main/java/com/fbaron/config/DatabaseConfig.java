@@ -17,6 +17,12 @@ public class DatabaseConfig {
     private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
 
     static {
+        try {
+            Class.forName(JDBC_DRIVER);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("MySQL JDBC Driver not found", e);
+        }
+
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl(JDBC_URL);
         config.setUsername(JDBC_USER);
