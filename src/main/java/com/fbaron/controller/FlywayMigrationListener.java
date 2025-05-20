@@ -1,5 +1,6 @@
 package com.fbaron.controller;
 
+import com.fbaron.config.DatabaseConfig;
 import com.mysql.cj.jdbc.AbandonedConnectionCleanupThread;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import jakarta.servlet.ServletContextEvent;
@@ -25,7 +26,7 @@ public class FlywayMigrationListener implements ServletContextListener {
         dataSource.setPassword(JDBC_PASSWORD);
 
         Flyway flyway = Flyway.configure()
-                .dataSource(dataSource)
+                .dataSource(DatabaseConfig.getDataSource())
                 .locations("classpath:db/migration")
                 .load();
 
@@ -41,6 +42,7 @@ public class FlywayMigrationListener implements ServletContextListener {
     public void contextDestroyed(ServletContextEvent sce) {
         try {
             AbandonedConnectionCleanupThread.checkedShutdown();
+            DatabaseConfig.shutdown();
         } catch (Exception e) {
             System.err.println("There was an error with shutdown: " + e.getMessage());
         }

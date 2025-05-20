@@ -32,6 +32,7 @@ public class UserServletController extends HttpServlet {
         userModel.setLastName(lastName);
         userModel.setUsername(username);
         userModel.setPassword(password);
+        userModel.setRole("USER");
 
 
         UserService userService = new UserService();
