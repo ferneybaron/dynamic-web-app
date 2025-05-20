@@ -17,9 +17,9 @@ public class ProductDAOImpl implements ProductDAO {
 
     @Override
     public void insertProduct(ProductModel model) {
-    String  sql = "INSERT INTO product (name, description, interestRate) VALUES (?, ?, ?)";
-        try (Connection connection = ConnectionManager.getConnection()) {
-            if (connection == null) throw new IllegalStateException("Connection is null");
+        String sql = "INSERT INTO product (name, description, interestRate) VALUES (?, ?, ?)";
+        try (Connection connection = ConnectionManager.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setString(1, model.getName());
@@ -35,21 +35,19 @@ public class ProductDAOImpl implements ProductDAO {
     @Override
     public ProductModel getProductById(long id) {
         String sql = "SELECT * FROM product WHERE id = ?";
-        try (Connection connection = ConnectionManager.getConnection()) {
-            if (connection == null) throw new IllegalStateException("Connection is null");
-            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        try (Connection connection = ConnectionManager.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
-                preparedStatement.setLong(1, id);
-                ResultSet resultSet = preparedStatement.executeQuery();
+            preparedStatement.setLong(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-                if (resultSet.next()) {
-                    ProductModel productModel = new ProductModel();
-                    productModel.setId(resultSet.getLong("id"));
-                    productModel.setName(resultSet.getString("name"));
-                    productModel.setDescription(resultSet.getString("description"));
-                    productModel.setInterestRate(resultSet.getBigDecimal("interestRate"));
-                    return productModel;
-                }
+            if (resultSet.next()) {
+                ProductModel productModel = new ProductModel();
+                productModel.setId(resultSet.getLong("id"));
+                productModel.setName(resultSet.getString("name"));
+                productModel.setDescription(resultSet.getString("description"));
+                productModel.setInterestRate(resultSet.getBigDecimal("interestRate"));
+                return productModel;
             }
         } catch (SQLException e) {
             System.err.println("ProductDAOImpl failed to select product by id: " + e.getMessage());
@@ -60,24 +58,21 @@ public class ProductDAOImpl implements ProductDAO {
     @Override
     public List<ProductModel> getAllProducts() {
         String sql = "SELECT * FROM product";
-        try (Connection connection = ConnectionManager.getConnection()) {
-            if (connection == null) throw new IllegalStateException("Connection is null");
-            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        try (Connection connection = ConnectionManager.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
-                List<ProductModel> products = new ArrayList<>();
-                ResultSet resultSet = preparedStatement.executeQuery();
+            List<ProductModel> products = new ArrayList<>();
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-                while (resultSet.next()) {
-                    ProductModel productModel = new ProductModel();
-                    productModel.setId(resultSet.getLong("id"));
-                    productModel.setName(resultSet.getString("name"));
-                    productModel.setDescription(resultSet.getString("description"));
-                    productModel.setInterestRate(resultSet.getBigDecimal("interestRate"));
-                    products.add(productModel);
-                }
-
-                return products;
+            while (resultSet.next()) {
+                ProductModel productModel = new ProductModel();
+                productModel.setId(resultSet.getLong("id"));
+                productModel.setName(resultSet.getString("name"));
+                productModel.setDescription(resultSet.getString("description"));
+                productModel.setInterestRate(resultSet.getBigDecimal("interestRate"));
+                products.add(productModel);
             }
+            return products;
         } catch (SQLException e) {
             System.err.println("ProductDAOImpl failed to select all products: " + e.getMessage());
         }

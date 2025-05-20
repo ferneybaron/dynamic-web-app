@@ -6,18 +6,20 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+
+
 /**
  * @author Ferney Estupinan Baron
  */
 public class ConnectionManager {
 
-    private static final DataSource dataSource = DatabaseConfig.getDataSource();
+    private static final DataSource datasource = DatabaseConfig.getDataSource();
 
     public static Connection getConnection() {
         try {
-            return dataSource.getConnection();
+            return datasource.getConnection();
         } catch (SQLException e) {
-            throw new RuntimeException("Failed to obtain DB connection", e);
+            throw new RuntimeException("Failed to obtain DB connection");
         }
     }
 
