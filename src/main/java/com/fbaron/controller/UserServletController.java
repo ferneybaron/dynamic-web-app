@@ -39,7 +39,7 @@ public class UserServletController extends HttpServlet {
         List<String> errors = userService.validateUser(userModel, confirmPassword);
 
         if (errors.isEmpty()) {
-            userService.registerUser(userModel);
+            userService.registerUser(userModel, "USER");
             String successMessage = "Your registration was successful " + userModel.getFirstName();
             request.setAttribute("successMessage", successMessage);
         } else {

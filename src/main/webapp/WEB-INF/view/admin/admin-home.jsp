@@ -12,28 +12,27 @@
       rel="stylesheet"
       href="${pageContext.request.contextPath}/css/styles.css?v=2"
     />
-    <title>Home</title>
+    <title>Admin Dashboard</title>
   </head>
   <body>
-
-    <%-- Get Attributes from the request --%>
-    <%
-        String user = (String) request.getSession().getAttribute("user");
-    %>
-    <!-- Main Section -->
     <main class="main">
       <section class="section banner banner-section">
         <div class="container">
           <div class="login-card padding-horizontal--48">
-            <h2>Welcome Back <p style="color: green;"><%= user %>
-            <div class="margin-bottom--12 content-center full-width">
-
+          <h2>Welcome Admin, <span style="color: green;"><%= session.getAttribute("user") %></span></h2>
+          <p>This is the admin dashboard. You have special privileges.</p>
+            <div class="margin-top--24">
+              <h3>Admin Actions</h3>
+              <ul>
+                <li><a href="${pageContext.request.contextPath}/admin/users">Manage Users</a></li>
+                <li><a href="${pageContext.request.contextPath}/admin/reports">View Reports</a></li>
+                <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
+              </ul>
             </div>
           </div>
         </div>
       </section>
     </main>
-
     <script src="${pageContext.request.contextPath}/js/script.js?v=1"></script>
   </body>
 </html>

@@ -7,7 +7,7 @@
     <display-name>dynamic-web-app</display-name>
 
     <welcome-file-list>
-        <welcome-file>index.html</welcome-file>
+        <welcome-file>landing</welcome-file>
     </welcome-file-list>
 
     <!-- Configuración del servlet para servir archivos estáticos -->
@@ -30,6 +30,17 @@
         <url-pattern>/css/*</url-pattern>
         <url-pattern>/js/*</url-pattern>
         <url-pattern>/assets/*</url-pattern>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/view/errors/not-found.jsp</location>
+    </error-page>
+
+    <error-page>
+        <error-code>403</error-code>
+        <location>/WEB-INF/view/errors/forbidden.jsp</location>
+    </error-page>
 
 </web-app>

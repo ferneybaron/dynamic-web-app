@@ -50,9 +50,10 @@ public class UserService {
         return errors;
     }
 
-    public void registerUser(UserModel userModel) {
+    public void registerUser(UserModel userModel, String role) {
         String hashedPassword = PasswordUtil.hash(userModel.getPassword());
         userModel.setPassword(hashedPassword);
+        userModel.setRole(role);
         userDAO.insertUser(userModel);
     }
 

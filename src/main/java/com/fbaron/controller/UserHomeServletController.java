@@ -1,4 +1,4 @@
-package com.fbaron.controller;
+ package com.fbaron.controller;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -11,13 +11,13 @@ import java.io.IOException;
 /**
  * @author Ferney Estupinan Baron
  */
-@WebServlet("/landing")
-public class IndexServletController extends HttpServlet {
+@WebServlet("/user/home")
+public class UserHomeServletController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/view/index.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/view/users/home.jsp").forward(request, response);
     }
 
 }

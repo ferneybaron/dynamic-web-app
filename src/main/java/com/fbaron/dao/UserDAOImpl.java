@@ -21,6 +21,7 @@ public class UserDAOImpl implements UserDAO {
             preparedStatement.setString(2, model.getLastName());
             preparedStatement.setString(3, model.getUsername());
             preparedStatement.setString(4, model.getPassword());
+            preparedStatement.setString(5, model.getRole());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -51,6 +52,7 @@ public class UserDAOImpl implements UserDAO {
                 userModel.setLastName(resultSet.getString("last_name"));
                 userModel.setUsername(resultSet.getString("username"));
                 userModel.setPassword(resultSet.getString("password"));
+                userModel.setRole(resultSet.getString("role"));
             }
         } catch (SQLException e) {
             System.err.println("UserDAOImpl failed to select user by username and password: " + e.getMessage());

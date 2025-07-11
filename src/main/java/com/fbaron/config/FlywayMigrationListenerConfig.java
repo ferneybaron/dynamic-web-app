@@ -1,6 +1,5 @@
-package com.fbaron.controller;
+package com.fbaron.config;
 
-import com.fbaron.config.DatabaseConfig;
 import com.mysql.cj.jdbc.AbandonedConnectionCleanupThread;
 import com.zaxxer.hikari.HikariDataSource;
 import jakarta.servlet.ServletContextEvent;
@@ -12,7 +11,7 @@ import org.flywaydb.core.Flyway;
  * @author Ferney Estupinan Baron
  */
 @WebListener
-public class FlywayMigrationListener implements ServletContextListener {
+public class FlywayMigrationListenerConfig implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
