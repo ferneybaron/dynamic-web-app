@@ -7,13 +7,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAOImpl implements UserDAO {
 
     @Override
     public void insertUser(UserModel model) {
-        String insertQuery = "INSERT INTO user (first_name, last_name, username, password) VALUES(?, ?, ?, ?);";
+        String insertQuery = "INSERT INTO user (first_name, last_name, username, password, role) VALUES(?, ?, ?, ?, ?)";
         try (Connection connection = ConnectionManager.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
 
@@ -31,7 +32,26 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public UserModel getUserById(long id) {
-        return null;
+        UserModel userModel = null;
+        String selectQuery = "SELECT id, first_name, last_name, username, role FROM user WHERE id = ?";
+        try (Connection connection = ConnectionManager.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(selectQuery)) {
+
+            preparedStatement.setLong(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                userModel = new UserModel();
+                userModel.setId(resultSet.getLong("id"));
+                userModel.setFirstName(resultSet.getString("first_name"));
+                userModel.setLastName(resultSet.getString("last_name"));
+                userModel.setUsername(resultSet.getString("username"));
+                userModel.setRole(resultSet.getString("role"));
+            }
+        } catch (SQLException e) {
+            System.err.println("UserDAOImpl failed to get user by id: " + e.getMessage());
+        }
+        return userModel;
     }
 
     @Override
@@ -62,12 +82,56 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public List<UserModel> getAllUsers() {
-        return List.of();
+        List<UserModel> users = new ArrayList<>();
+        String selectQuery = "SELECT id, first_name, last_name, username, role FROM user ORDER BY id";
+        try (Connection connection = ConnectionManager.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(selectQuery);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            while (resultSet.next()) {
+                UserModel userModel = new UserModel();
+                userModel.setId(resultSet.getLong("id"));
+                userModel.setFirstName(resultSet.getString("first_name"));
+                userModel.setLastName(resultSet.getString("last_name"));
+                userModel.setUsername(resultSet.getString("username"));
+                userModel.setRole(resultSet.getString("role"));
+                users.add(userModel);
+            }
+        } catch (SQLException e) {
+            System.err.println("UserDAOImpl failed to get all users: " + e.getMessage());
+        }
+        return users;
     }
 
     @Override
     public void updateUser(long id, UserModel model) {
+        String updateQuery;
+        if (model.getPassword() != null && !model.getPassword().isBlank()) {
+            updateQuery = "UPDATE user SET first_name = ?, last_name = ?, username = ?, role = ?, password = ? WHERE id = ?";
+        } else {
+            updateQuery = "UPDATE user SET first_name = ?, last_name = ?, username = ?, role = ? WHERE id = ?";
+        }
+        
+        try (Connection connection = ConnectionManager.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
 
+            preparedStatement.setString(1, model.getFirstName());
+            preparedStatement.setString(2, model.getLastName());
+            preparedStatement.setString(3, model.getUsername());
+            preparedStatement.setString(4, model.getRole());
+            
+            if (model.getPassword() != null && !model.getPassword().isBlank()) {
+                preparedStatement.setString(5, model.getPassword());
+                preparedStatement.setLong(6, id);
+            } else {
+                preparedStatement.setLong(5, id);
+            }
+            
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            System.err.println("UserDAOImpl failed to update user: " + e.getMessage());
+        }
     }
 
     @Override

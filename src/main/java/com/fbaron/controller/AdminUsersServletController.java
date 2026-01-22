@@ -14,8 +14,8 @@ import java.util.List;
 /**
  * @author Ferney Estupinan Baron
  */
-@WebServlet("/admin/home")
-public class AdminHomeServletController extends HttpServlet {
+@WebServlet("/admin/users")
+public class AdminUsersServletController extends HttpServlet {
 
     private final UserService userService = new UserService();
 
@@ -23,13 +23,10 @@ public class AdminHomeServletController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Get total number of users
         List<UserModel> users = userService.getAllUsers();
-        int totalUsers = users != null ? users.size() : 0;
-        
-        request.setAttribute("totalUsers", totalUsers);
-        request.setAttribute("pageTitle", "Admin Dashboard");
-        request.setAttribute("contentPage", "/WEB-INF/view/admin/admin-home.jsp");
+        request.setAttribute("users", users);
+        request.setAttribute("pageTitle", "Admin Users");
+        request.setAttribute("contentPage", "/WEB-INF/view/admin/admin-users.jsp");
 
         request.getRequestDispatcher("/WEB-INF/view/dashboard.jsp").forward(request, response);
     }
